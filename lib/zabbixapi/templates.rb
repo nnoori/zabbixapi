@@ -131,9 +131,9 @@ class ZabbixApi
     # * *Returns* :
     #   - Nil or Integer
     def get_id(data)
-      templateid = nil
-      get_full_data(data).each { |template| templateid = template['templateid'].to_i if template['host'] == data[:host] }
-      templateid
+      if tempate = get_full_data(data).find { |t| t['host'] == data[:host }
+        template['templateid'].to_i
+      end
     end
 
   end

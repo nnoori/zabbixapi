@@ -23,6 +23,15 @@ class ZabbixApi
   attr :triggers
   attr :graphs
 
+  #API Calls
+  attr :alert             
+  attr :action 
+  attr :event
+  attr :graphItem
+  attr :hostInterface
+  
+
+
   def self.connect(options = {})
     new(options)
   end

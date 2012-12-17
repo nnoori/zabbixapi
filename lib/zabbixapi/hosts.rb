@@ -6,20 +6,21 @@ class ZabbixApi
       @options = options
       @host_default_options = {
         :host => nil,
-        :port => 10050,
+        :available =>0,
         :status => 1,
-        :useip => 1,
-        :dns => '',
-        :ip => '0.0.0.0',
         :proxy_hostid => 0,
         :groups => [],
         :useipmi => 0,
         :ipmi_ip => '',
         :ipmi_port => 623,
         :ipmi_authtype => 0,
+        :ipmi_available => 0,
         :ipmi_privilege => 0,
         :ipmi_username => '',
-        :ipmi_password => ''
+        :ipmi_password => '',
+        :jmx_available =>0,
+        :name => nil,
+
       }
     end
 

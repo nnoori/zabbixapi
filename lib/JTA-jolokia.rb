@@ -30,8 +30,8 @@ class Jmx
     # use options = { "maxDepth" => 2} to limit depth
 
     def list(path,config={})
-      self.class.post('/jolokia/', :body => {"type" => "LIST"}.to_json)
-      #self.class.post('/jolokia/', :body => { "type" => "LIST", "path" => path, "config" => config}.to_json)
+      #self.class.post('/jolokia/', :body => {"type" => "LIST"}.to_json)
+      self.class.post('/jolokia/', :body => { "type" => "LIST", "path" => path, "config" => config}.to_json)
     end
 
     def read(mbean,attribute,path=nil,config={})
@@ -79,8 +79,26 @@ JTest2=Jmx.new
 
 #puts (JTest1.version)
 
-#puts(JTest2.search("Mule.jta*:*"))
-puts(JTest2.list("",""))
+result = JSON.generate(JTest2.search("Mule.jta*:*"))
+parsed = JSON.parse(result)
+puts parsed["value"].length
+
+test = parsed["value"]
+
+puts test[0].gsub(/:/,'/')
+puts(JTest2.list(test[0].gsub(/:/,'/')+"/attr"))
+sorted_JTA
+#test.each do |name|
+#p name 
+#puts(JTest2.list("Mule.jta-interface-webview-rest-1.1/type=Model,name=\"_muleSystemModel(seda)\"/attr"))
+#end
+#str_result = result.to_s
+#new_str_result = str_result.split('Mule')
+#new_str_result1 = str_result.partition("Mule")
+#puts new_str_result
+#puts "inspect"
+#puts(JSON.parse(result.to_json))
+#puts(JTest2.list("Mule.jta-interface-webview-rest-1.1/type=Model,name=\"_muleSystemModel(seda)\"/attr"))
 
 #puts(JTest1.exec("java.lang:type=Threading","dumpAllThreads",["true","true"]))
 #puts(JTest1.read("Catalina:J2EEApplication=none,J2EEServer=none,j2eeType=WebModule,name=//localhost/jolokia", "workDir"))
